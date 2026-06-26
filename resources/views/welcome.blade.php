@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Azalea') }}</title>
-    <style>@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');</style>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Playwrite+AU+TAS:wght@100..400&display=swap');</style>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
@@ -32,10 +32,11 @@
         }
         .nav-logo {
             font-size: 1.2rem;
-            font-weight: 700;
+            font-weight: 400;
             color: #1a1a1a;
             text-decoration: none;
-            letter-spacing: -0.02em;
+            letter-spacing: 0;
+            font-family: 'Playwrite AU TAS', cursive;
         }
         .nav-right {
             display: flex;
@@ -801,6 +802,252 @@
             box-shadow: 0 2px 6px rgba(244, 114, 182, 0.12);
         }
         .feat-icon-circle svg { width: 18px; height: 18px; }
+
+        /* ── Template Browse ── */
+        .browse-section {
+            margin-top: 5rem;
+            padding-top: 4rem;
+            border-top: 1px solid #f3e8f0;
+        }
+        .browse-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+        .browse-header h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+        .browse-header p {
+            font-size: 0.875rem;
+            color: #9ca3af;
+        }
+        /* Toolbar: search left, sort right */
+        .browse-toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        .browse-search {
+            position: relative;
+            flex: 1;
+            max-width: 360px;
+        }
+        .browse-search svg {
+            position: absolute;
+            left: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 15px;
+            color: #9ca3af;
+            pointer-events: none;
+        }
+        .browse-search input {
+            width: 100%;
+            padding: 0.55rem 1rem 0.55rem 2.4rem;
+            border: 1px solid #e5d0e0;
+            border-radius: 9999px;
+            font-size: 0.825rem;
+            color: #374151;
+            background: #fff;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .browse-search input::placeholder { color: #c4b5c0; }
+        .browse-search input:focus {
+            border-color: #e02424;
+            box-shadow: 0 0 0 3px rgba(224,36,36,0.07);
+        }
+        /* Sort dropdown */
+        .browse-sort {
+            position: relative;
+            flex-shrink: 0;
+        }
+        .browse-sort svg.sort-icon {
+            position: absolute;
+            left: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 14px;
+            height: 14px;
+            color: #9ca3af;
+            pointer-events: none;
+        }
+        .browse-sort svg.chevron {
+            position: absolute;
+            right: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 13px;
+            height: 13px;
+            color: #9ca3af;
+            pointer-events: none;
+        }
+        .browse-sort select {
+            appearance: none;
+            -webkit-appearance: none;
+            padding: 0.55rem 2.4rem 0.55rem 2.2rem;
+            border: 1px solid #e5d0e0;
+            border-radius: 9999px;
+            font-size: 0.825rem;
+            color: #374151;
+            background: #fff;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .browse-sort select:focus { border-color: #e02424; }
+        /* Filter row */
+        .browse-filters {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .filter-label {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #6b7280;
+            margin-right: 0.25rem;
+            white-space: nowrap;
+        }
+        .filter-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.35rem 0.9rem;
+            border: 1px solid #e5d0e0;
+            border-radius: 9999px;
+            font-size: 0.78rem;
+            color: #6b7280;
+            background: #fff;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s, color 0.2s;
+            user-select: none;
+        }
+        .filter-chip:hover { border-color: #e02424; color: #e02424; }
+        .filter-chip.active {
+            background: #e02424;
+            border-color: #e02424;
+            color: #fff;
+        }
+        /* Card grid */
+        .browse-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+        }
+        .inv-card {
+            border: 1px solid #f3e8f0;
+            border-radius: 1rem;
+            overflow: hidden;
+            background: #fff;
+            transition: box-shadow 0.25s, transform 0.25s;
+            cursor: pointer;
+        }
+        .inv-card:hover {
+            box-shadow: 0 8px 28px rgba(224,36,36,0.11);
+            transform: translateY(-3px);
+        }
+        .inv-card-thumb {
+            width: 100%;
+            aspect-ratio: 3/4;
+            background: #f9edf4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .inv-card-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        /* SVG placeholder thumbnail */
+        .inv-thumb-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .inv-card-badge {
+            position: absolute;
+            top: 0.6rem;
+            left: 0.6rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 9999px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        .inv-card-badge.popular { background: #e02424; }
+        .inv-card-badge.new { background: #7c3aed; }
+        .inv-card-badge.free { background: #059669; }
+        .inv-card-body {
+            padding: 0.85rem 1rem 1rem;
+        }
+        .inv-card-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 0.2rem;
+        }
+        .inv-card-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .inv-card-category {
+            font-size: 0.72rem;
+            color: #9ca3af;
+        }
+        .inv-card-price {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #e02424;
+        }
+        .inv-card-price.free-tag { color: #059669; }
+        /* Browse footer CTA */
+        .browse-cta {
+            text-align: center;
+            margin-top: 2.5rem;
+        }
+        .browse-cta a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #e02424;
+            border: 1.5px solid #e02424;
+            text-decoration: none;
+            padding: 0.6rem 1.75rem;
+            border-radius: 9999px;
+            transition: background 0.2s, color 0.2s;
+        }
+        .browse-cta a:hover { background: #e02424; color: #fff; }
+
+        @media (max-width: 1024px) {
+            .browse-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .browse-grid { grid-template-columns: repeat(2, 1fr); }
+            .browse-toolbar { flex-wrap: wrap; }
+            .browse-search { max-width: 100%; flex: 1 1 auto; }
+            .browse-sort { flex: 0 0 auto; }
+        }
+        @media (max-width: 480px) {
+            .browse-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+            .browse-filters { justify-content: flex-start; }
+        }
+
         @media (max-width: 640px) {
             .feat-section { padding: 3rem 1.25rem; }
             .feat-header { margin-bottom: 2rem; }
@@ -873,7 +1120,6 @@
             <!-- Right: Nav links + Auth (desktop) -->
             <div class="nav-right">
                 <a href="/">Home</a>
-                <a href="/products">Product</a>
                 <a href="/templates">Template</a>
                 <a href="/blog">Blog</a>
                 <a href="/login" class="btn-login">Login</a>
@@ -891,7 +1137,6 @@
         <!-- Mobile Drawer -->
         <div class="mobile-menu" id="mobile-menu">
             <a href="/">Home</a>
-            <a href="/products">Product</a>
             <a href="/templates">Template</a>
             <a href="/blog">Blog</a>
             <div class="mobile-auth">
@@ -1345,6 +1590,295 @@
                 </div>
 
             </div>
+
+            <!-- ── Template Browse ── -->
+            <div class="browse-section">
+                <div class="browse-header">
+                    <h3>Explore Our Invitation Templates</h3>
+                    <p>Hundreds of beautiful templates, ready to personalise in minutes.</p>
+                </div>
+
+                <!-- Toolbar: search (left) + sort (right) -->
+                <div class="browse-toolbar">
+                    <div class="browse-search">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                        </svg>
+                        <input type="text" id="browseSearch" placeholder="Search templates…" autocomplete="off">
+                    </div>
+                    <div class="browse-sort">
+                        <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <line x1="3" y1="6" x2="21" y2="6"/><line x1="6" y1="12" x2="18" y2="12"/><line x1="9" y1="18" x2="15" y2="18"/>
+                        </svg>
+                        <select id="browseSort" aria-label="Sort templates">
+                            <option value="newest">Newest</option>
+                            <option value="popular">Most Popular</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                            <option value="az">A – Z</option>
+                        </select>
+                        <svg class="chevron" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- Filter chips + reset / apply -->
+                <div class="browse-filters" id="browseFilters">
+                    <span class="filter-label">Filter:</span>
+                    <button class="filter-chip active" data-filter="all">All</button>
+                    <button class="filter-chip" data-filter="minimalist">Minimalist</button>
+                    <button class="filter-chip" data-filter="floral">Floral</button>
+                    <button class="filter-chip" data-filter="elegant">Elegant</button>
+                    <button class="filter-chip" data-filter="traditional">Traditional</button>
+                    <button class="filter-chip" data-filter="modern">Modern</button>
+                </div>
+
+                <!-- Card grid -->
+                <div class="browse-grid" id="browseGrid">
+
+                    <!-- Card 1 -->
+                    <div class="inv-card" data-category="floral">
+                        <div class="inv-card-thumb">
+                            <div class="inv-thumb-placeholder">
+                                <svg viewBox="0 0 180 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                                    <rect width="180" height="240" fill="#fdf0f7"/>
+                                    <ellipse cx="90" cy="62" rx="26" ry="30" fill="#f9d4e8" opacity=".7"/>
+                                    <ellipse cx="90" cy="62" rx="14" ry="18" fill="#f472b6" opacity=".5"/>
+                                    <circle cx="90" cy="62" r="6" fill="#e02424" opacity=".8"/>
+                                    <ellipse cx="68" cy="72" rx="14" ry="9" fill="#f9d4e8" opacity=".55" transform="rotate(-30 68 72)"/>
+                                    <ellipse cx="112" cy="72" rx="14" ry="9" fill="#f9d4e8" opacity=".55" transform="rotate(30 112 72)"/>
+                                    <rect x="60" y="105" width="60" height="5" rx="2.5" fill="#e0a0bc" opacity=".6"/>
+                                    <rect x="70" y="116" width="40" height="4" rx="2" fill="#e0a0bc" opacity=".4"/>
+                                    <rect x="55" y="130" width="70" height="3" rx="1.5" fill="#e0a0bc" opacity=".3"/>
+                                    <rect x="58" y="140" width="64" height="3" rx="1.5" fill="#e0a0bc" opacity=".3"/>
+                                    <rect x="62" y="150" width="56" height="3" rx="1.5" fill="#e0a0bc" opacity=".3"/>
+                                    <rect x="65" y="170" width="50" height="14" rx="7" fill="#e02424" opacity=".75"/>
+                                </svg>
+                            </div>
+                            <span class="inv-card-badge popular">Popular</span>
+                        </div>
+                        <div class="inv-card-body">
+                            <div class="inv-card-name">Rosa Bloom</div>
+                            <div class="inv-card-meta">
+                                <span class="inv-card-category">Floral</span>
+                                <span class="inv-card-price">Rp 149k</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="inv-card" data-category="minimalist">
+                        <div class="inv-card-thumb">
+                            <div class="inv-thumb-placeholder">
+                                <svg viewBox="0 0 180 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                                    <rect width="180" height="240" fill="#f8f6f4"/>
+                                    <line x1="40" y1="60" x2="140" y2="60" stroke="#c9b9a8" stroke-width="1.2"/>
+                                    <rect x="60" y="72" width="60" height="7" rx="3.5" fill="#c9b9a8" opacity=".5"/>
+                                    <rect x="70" y="86" width="40" height="5" rx="2.5" fill="#c9b9a8" opacity=".4"/>
+                                    <line x1="75" y1="100" x2="105" y2="100" stroke="#c9b9a8" stroke-width="1"/>
+                                    <rect x="50" y="114" width="80" height="3" rx="1.5" fill="#c9b9a8" opacity=".3"/>
+                                    <rect x="54" y="122" width="72" height="3" rx="1.5" fill="#c9b9a8" opacity=".3"/>
+                                    <rect x="58" y="130" width="64" height="3" rx="1.5" fill="#c9b9a8" opacity=".3"/>
+                                    <rect x="54" y="140" width="72" height="3" rx="1.5" fill="#c9b9a8" opacity=".3"/>
+                                    <line x1="40" y1="160" x2="140" y2="160" stroke="#c9b9a8" stroke-width="1.2"/>
+                                    <rect x="62" y="172" width="56" height="14" rx="7" fill="#1a1a1a" opacity=".8"/>
+                                </svg>
+                            </div>
+                            <span class="inv-card-badge new">New</span>
+                        </div>
+                        <div class="inv-card-body">
+                            <div class="inv-card-name">Ivory Serif</div>
+                            <div class="inv-card-meta">
+                                <span class="inv-card-category">Minimalist</span>
+                                <span class="inv-card-price">Rp 99k</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="inv-card" data-category="elegant">
+                        <div class="inv-card-thumb">
+                            <div class="inv-thumb-placeholder">
+                                <svg viewBox="0 0 180 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                                    <rect width="180" height="240" fill="#1c1c2e"/>
+                                    <rect x="18" y="18" width="144" height="204" rx="4" fill="none" stroke="#b8976a" stroke-width="1"/>
+                                    <rect x="24" y="24" width="132" height="192" rx="3" fill="none" stroke="#b8976a" stroke-width=".5" opacity=".5"/>
+                                    <ellipse cx="90" cy="72" rx="22" ry="24" fill="none" stroke="#b8976a" stroke-width="1.2"/>
+                                    <rect x="58" y="106" width="64" height="6" rx="3" fill="#b8976a" opacity=".7"/>
+                                    <rect x="68" y="118" width="44" height="4" rx="2" fill="#b8976a" opacity=".5"/>
+                                    <rect x="52" y="132" width="76" height="2.5" rx="1.25" fill="#b8976a" opacity=".3"/>
+                                    <rect x="56" y="140" width="68" height="2.5" rx="1.25" fill="#b8976a" opacity=".3"/>
+                                    <rect x="52" y="148" width="76" height="2.5" rx="1.25" fill="#b8976a" opacity=".3"/>
+                                    <rect x="62" y="166" width="56" height="14" rx="7" fill="#b8976a" opacity=".85"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="inv-card-body">
+                            <div class="inv-card-name">Midnight Gold</div>
+                            <div class="inv-card-meta">
+                                <span class="inv-card-category">Elegant</span>
+                                <span class="inv-card-price">Rp 199k</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="inv-card" data-category="traditional">
+                        <div class="inv-card-thumb">
+                            <div class="inv-thumb-placeholder">
+                                <svg viewBox="0 0 180 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                                    <rect width="180" height="240" fill="#fffbf0"/>
+                                    <rect x="10" y="10" width="160" height="220" rx="3" fill="none" stroke="#c8a45a" stroke-width="2"/>
+                                    <path d="M10 40 Q90 25 170 40" stroke="#c8a45a" stroke-width="1" fill="none"/>
+                                    <path d="M10 200 Q90 215 170 200" stroke="#c8a45a" stroke-width="1" fill="none"/>
+                                    <path d="M40 10 Q55 50 40 90" stroke="#8b4513" stroke-width="1.5" fill="none" opacity=".4"/>
+                                    <path d="M140 10 Q125 50 140 90" stroke="#8b4513" stroke-width="1.5" fill="none" opacity=".4"/>
+                                    <rect x="58" y="100" width="64" height="6" rx="3" fill="#8b4513" opacity=".5"/>
+                                    <rect x="68" y="112" width="44" height="4" rx="2" fill="#8b4513" opacity=".4"/>
+                                    <rect x="52" y="126" width="76" height="2.5" rx="1.25" fill="#8b4513" opacity=".25"/>
+                                    <rect x="56" y="134" width="68" height="2.5" rx="1.25" fill="#8b4513" opacity=".25"/>
+                                    <rect x="62" y="158" width="56" height="14" rx="7" fill="#c8a45a" opacity=".85"/>
+                                </svg>
+                            </div>
+                            <span class="inv-card-badge popular">Popular</span>
+                        </div>
+                        <div class="inv-card-body">
+                            <div class="inv-card-name">Batik Nusantara</div>
+                            <div class="inv-card-meta">
+                                <span class="inv-card-category">Traditional</span>
+                                <span class="inv-card-price">Rp 149k</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 5 -->
+                    <div class="inv-card" data-category="modern">
+                        <div class="inv-card-thumb">
+                            <div class="inv-thumb-placeholder">
+                                <svg viewBox="0 0 180 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                                    <rect width="180" height="240" fill="#f0f4ff"/>
+                                    <rect x="0" y="0" width="180" height="70" fill="#4f46e5" opacity=".85"/>
+                                    <rect x="50" y="20" width="80" height="8" rx="4" fill="#fff" opacity=".9"/>
+                                    <rect x="65" y="34" width="50" height="5" rx="2.5" fill="#fff" opacity=".6"/>
+                                    <rect x="55" y="90" width="70" height="6" rx="3" fill="#4f46e5" opacity=".6"/>
+                                    <rect x="62" y="102" width="56" height="4" rx="2" fill="#4f46e5" opacity=".4"/>
+                                    <rect x="48" y="118" width="84" height="2.5" rx="1.25" fill="#4f46e5" opacity=".2"/>
+                                    <rect x="52" y="126" width="76" height="2.5" rx="1.25" fill="#4f46e5" opacity=".2"/>
+                                    <rect x="48" y="134" width="84" height="2.5" rx="1.25" fill="#4f46e5" opacity=".2"/>
+                                    <rect x="58" y="158" width="64" height="14" rx="7" fill="#4f46e5" opacity=".85"/>
+                                </svg>
+                            </div>
+                            <span class="inv-card-badge new">New</span>
+                        </div>
+                        <div class="inv-card-body">
+                            <div class="inv-card-name">Indigo Modern</div>
+                            <div class="inv-card-meta">
+                                <span class="inv-card-category">Modern</span>
+                                <span class="inv-card-price">Rp 129k</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 6 -->
+                    <div class="inv-card" data-category="floral">
+                        <div class="inv-card-thumb">
+                            <div class="inv-thumb-placeholder">
+                                <svg viewBox="0 0 180 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                                    <rect width="180" height="240" fill="#fff9f5"/>
+                                    <circle cx="30" cy="30" r="22" fill="#f9d4e4" opacity=".5"/>
+                                    <circle cx="150" cy="210" r="28" fill="#f9d4e4" opacity=".5"/>
+                                    <circle cx="155" cy="35" r="14" fill="#f472b6" opacity=".3"/>
+                                    <circle cx="25" cy="205" r="18" fill="#f472b6" opacity=".3"/>
+                                    <rect x="55" y="95" width="70" height="6" rx="3" fill="#e02424" opacity=".55"/>
+                                    <rect x="65" y="108" width="50" height="4" rx="2" fill="#e02424" opacity=".4"/>
+                                    <rect x="50" y="122" width="80" height="2.5" rx="1.25" fill="#c9a0b0" opacity=".4"/>
+                                    <rect x="54" y="130" width="72" height="2.5" rx="1.25" fill="#c9a0b0" opacity=".4"/>
+                                    <rect x="50" y="138" width="80" height="2.5" rx="1.25" fill="#c9a0b0" opacity=".4"/>
+                                    <rect x="54" y="146" width="72" height="2.5" rx="1.25" fill="#c9a0b0" opacity=".4"/>
+                                    <rect x="62" y="168" width="56" height="14" rx="7" fill="#e02424" opacity=".75"/>
+                                </svg>
+                            </div>
+                            <span class="inv-card-badge free">Free</span>
+                        </div>
+                        <div class="inv-card-body">
+                            <div class="inv-card-name">Sakura Blush</div>
+                            <div class="inv-card-meta">
+                                <span class="inv-card-category">Floral</span>
+                                <span class="inv-card-price free-tag">Free</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 7 -->
+                    <div class="inv-card" data-category="minimalist">
+                        <div class="inv-card-thumb">
+                            <div class="inv-thumb-placeholder">
+                                <svg viewBox="0 0 180 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                                    <rect width="180" height="240" fill="#fafafa"/>
+                                    <rect x="36" y="36" width="108" height="168" rx="2" fill="none" stroke="#d1d5db" stroke-width="1.5"/>
+                                    <rect x="58" y="60" width="64" height="5" rx="2.5" fill="#374151" opacity=".5"/>
+                                    <rect x="68" y="70" width="44" height="4" rx="2" fill="#374151" opacity=".35"/>
+                                    <circle cx="90" cy="100" r="18" fill="#f3f4f6"/>
+                                    <rect x="52" y="128" width="76" height="2.5" rx="1.25" fill="#d1d5db"/>
+                                    <rect x="56" y="136" width="68" height="2.5" rx="1.25" fill="#d1d5db"/>
+                                    <rect x="52" y="144" width="76" height="2.5" rx="1.25" fill="#d1d5db"/>
+                                    <rect x="62" y="164" width="56" height="14" rx="7" fill="#374151" opacity=".7"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="inv-card-body">
+                            <div class="inv-card-name">Clean Linen</div>
+                            <div class="inv-card-meta">
+                                <span class="inv-card-category">Minimalist</span>
+                                <span class="inv-card-price">Rp 99k</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 8 -->
+                    <div class="inv-card" data-category="elegant">
+                        <div class="inv-card-thumb">
+                            <div class="inv-thumb-placeholder">
+                                <svg viewBox="0 0 180 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
+                                    <rect width="180" height="240" fill="#f9f5f0"/>
+                                    <rect x="0" y="0" width="180" height="240" fill="none" stroke="#d4af72" stroke-width="3"/>
+                                    <path d="M15 15 L35 15 L35 35" stroke="#d4af72" stroke-width="1.5" fill="none"/>
+                                    <path d="M165 15 L145 15 L145 35" stroke="#d4af72" stroke-width="1.5" fill="none"/>
+                                    <path d="M15 225 L35 225 L35 205" stroke="#d4af72" stroke-width="1.5" fill="none"/>
+                                    <path d="M165 225 L145 225 L145 205" stroke="#d4af72" stroke-width="1.5" fill="none"/>
+                                    <ellipse cx="90" cy="72" rx="28" ry="32" fill="none" stroke="#d4af72" stroke-width="1"/>
+                                    <rect x="56" y="114" width="68" height="5" rx="2.5" fill="#d4af72" opacity=".7"/>
+                                    <rect x="66" y="125" width="48" height="4" rx="2" fill="#d4af72" opacity=".5"/>
+                                    <rect x="50" y="138" width="80" height="2" rx="1" fill="#d4af72" opacity=".3"/>
+                                    <rect x="54" y="146" width="72" height="2" rx="1" fill="#d4af72" opacity=".3"/>
+                                    <rect x="50" y="154" width="80" height="2" rx="1" fill="#d4af72" opacity=".3"/>
+                                    <rect x="62" y="174" width="56" height="14" rx="7" fill="#d4af72" opacity=".85"/>
+                                </svg>
+                            </div>
+                            <span class="inv-card-badge popular">Popular</span>
+                        </div>
+                        <div class="inv-card-body">
+                            <div class="inv-card-name">Golden Frame</div>
+                            <div class="inv-card-meta">
+                                <span class="inv-card-category">Elegant</span>
+                                <span class="inv-card-price">Rp 199k</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /.browse-grid -->
+
+                <div class="browse-cta">
+                    <a href="/templates">
+                        View All Templates
+                        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </a>
+                </div>
+            </div><!-- /.browse-section -->
+
         </div>
     </section>
 
@@ -1479,6 +2013,54 @@
             track.closest('.features-carousel-wrap').addEventListener('mouseleave', startAuto);
 
             startAuto();
+        })();
+
+        // ── Template Browse: filter chips, search, sort ──
+        (function () {
+            const chips   = document.querySelectorAll('#browseFilters .filter-chip');
+            const cards   = document.querySelectorAll('#browseGrid .inv-card');
+            const search  = document.getElementById('browseSearch');
+            const sort    = document.getElementById('browseSort');
+
+            let activeFilter = 'all';
+
+            function applyAll() {
+                const query = (search ? search.value.toLowerCase() : '');
+                cards.forEach(card => {
+                    const cat  = card.dataset.category || '';
+                    const name = card.querySelector('.inv-card-name').textContent.toLowerCase();
+                    const matchFilter = activeFilter === 'all' || cat === activeFilter;
+                    const matchSearch = !query || name.includes(query) || cat.includes(query);
+                    card.style.display = (matchFilter && matchSearch) ? '' : 'none';
+                });
+            }
+
+            chips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    chips.forEach(c => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    activeFilter = chip.dataset.filter;
+                    applyAll();
+                });
+            });
+
+            if (search) search.addEventListener('input', applyAll);
+            if (sort)   sort.addEventListener('change', () => {
+                const val   = sort.value;
+                const grid  = document.getElementById('browseGrid');
+                const items = Array.from(grid.querySelectorAll('.inv-card'));
+                items.sort((a, b) => {
+                    const nameA = a.querySelector('.inv-card-name').textContent;
+                    const nameB = b.querySelector('.inv-card-name').textContent;
+                    const priceA = parseInt(a.querySelector('.inv-card-price').textContent.replace(/\D/g, '')) || 0;
+                    const priceB = parseInt(b.querySelector('.inv-card-price').textContent.replace(/\D/g, '')) || 0;
+                    if (val === 'az')         return nameA.localeCompare(nameB);
+                    if (val === 'price-asc')  return priceA - priceB;
+                    if (val === 'price-desc') return priceB - priceA;
+                    return 0;
+                });
+                items.forEach(item => grid.appendChild(item));
+            });
         })();
     </script>
 

@@ -15,9 +15,6 @@
                     <a href="/" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200">
                         Home
                     </a>
-                    <a href="/products" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200">
-                        Product
-                    </a>
                     <a href="/templates" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors duration-200">
                         Template
                     </a>
@@ -52,7 +49,6 @@
         <div id="mobile-menu" class="md:hidden hidden pb-4">
             <div class="flex flex-col gap-2 pt-2 border-t border-pink-200">
                 <a href="/" class="text-sm font-medium text-gray-700 hover:text-gray-900 py-2 px-1 transition-colors">Home</a>
-                <a href="/products" class="text-sm font-medium text-gray-700 hover:text-gray-900 py-2 px-1 transition-colors">Product</a>
                 <a href="/templates" class="text-sm font-medium text-gray-700 hover:text-gray-900 py-2 px-1 transition-colors">Template</a>
                 <a href="/blog" class="text-sm font-medium text-gray-700 hover:text-gray-900 py-2 px-1 transition-colors">Blog</a>
                 <div class="flex gap-3 pt-2">
